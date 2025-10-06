@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Incandescent Bulb Power Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #b409a3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .circle-wrapper {
+      width: 400px;
+      height: 400px;
+      background: rgb(122, 2, 149);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .calculator {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      width: 80%;
+      text-align: center;
+    }
+
+    h2 {
+      color: #b50a90;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #b40ab4;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background: #cf08e5;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 15px;
+    }
+
+    button:hover {
+      background: #850456;
+    }
+
+    #result {
+      margin-top: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #df1899;
+    }
+
+    @media (max-width: 450px) {
+      .circle-wrapper {
+        width: 2cm;
+        height: 2cm;
+        border-radius: 50%;
+      }
+
+      .calculator {
+        width: 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="circle-wrapper">
+    <div class="calculator">
+      <h2>Power Calculator</h2>
+      <form onsubmit="calculatePower(event)">
+        <label for="intensity">Intensity (I) :</label>
+        <input type="number" id="intensity" step="any" required>
+
+        <label for="resistance">Resistance (R) :</label>
+        <input type="number" id="resistance" step="any" required>
+
+        <button type="submit">Calculate Power</button>
+      </form>
+      <p id="result"></p>
+    </div>
+  </div>
+
+  <script>
+    function calculatePower(event) {
+      event.preventDefault();
+
+      let I = parseFloat(document.getElementById("intensity").value);
+      let R = parseFloat(document.getElementById("resistance").value);
+
+      if (isNaN(I) || isNaN(R) || I < 0 || R < 0) {
+        document.getElementById("result").innerText = "⚠ Please enter valid positive numbers.";
+        return;
+      }
+
+      let P = I * I * R;
+      document.getElementById("result").innerText = "Power (P) = " + P.toFixed(2) + " Watts";
+    }
+  </script>
+
+</body>
+</html>
