@@ -95,34 +95,23 @@
   <div class="circle-wrapper">
     <div class="calculator">
       <h2>Power Calculator</h2>
-      <form onsubmit="calculatePower(event)">
+      <form method="post">
+        {% csrf_token %}
         <label for="intensity">Intensity (I) :</label>
-        <input type="number" id="intensity" step="any" required>
+        <input type="number" name="intensity" id="intensity" step="any" required>
 
         <label for="resistance">Resistance (R) :</label>
-        <input type="number" id="resistance" step="any" required>
+        <input type="number" name="resistance" id="resistance" step="any" required>
 
         <button type="submit">Calculate Power</button>
       </form>
-      <p id="result"></p>
+      <p id="result">
+        {% if result %}
+          {{ result }}
+        {% endif %}
+      </p>
     </div>
   </div>
 
-  <script>
-    function calculatePower(event) {
-      event.preventDefault();
-
-      let I = parseFloat(document.getElementById("intensity").value);
-      let R = parseFloat(document.getElementById("resistance").value);
-
-      if (isNaN(I) || isNaN(R) || I < 0 || R < 0) {
-        document.getElementById("result").innerText = "⚠ Please enter valid positive numbers.";
-        return;
-      }
- 
-      let P = I * I * R;
-      document.getElementById("result").innerText = "Power (P) = "
-    }
-  </script>
 </body>
 </html>
