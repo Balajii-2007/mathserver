@@ -1,14 +1,35 @@
 from django.shortcuts import render
 
-def index(request):
-    result = None
+def power_calculator(request):
+    context = {}
+    context['result'] = "0"
+    context['I'] = "0"
+    context['R'] = "0"
+    context['steps'] = ""
+
     if request.method == 'POST':
+        print("POST method is used")
+        I = request.POST.get('intensity', '0')
+        R = request.POST.get('resistance', '0')
+
         try:
-            intensity = float(request.POST.get('intensity', '0'))
-            resistance = float(request.POST.get('resistance', '0'))
-            power = intensity * intensity * resistance
-            result = f'Power (P) = {power:.2f} W'
-        except (ValueError, TypeError):
-            result = 'Please enter valid positive numbers.'
-    
-    return render(request, "mathapp/index.html", {'result': result})
+            I = float(I)
+            R = float(R)
+            P = I * I * R   # Formula: P = I² × R
+            result = round(P, 2)
+
+            context['result'] = result
+            context['I'] = I
+            context['R'] = R
+            context['steps'] = f"P = I² × R = {I}² × {R} = {round(I*I, 2)} × {R} = {result} W"
+
+            print("Intensity:", I)
+            print("Resistance:", R)
+            print("Power:", result)
+
+        except:
+            context['result'] = "Invalid Input"
+
+    return render(request, 'mathapp/math.html', context)
+
+

@@ -1,6 +1,5 @@
 # Ex.05 Design a Website for Server Side Processing
-# Date:
-06.10.2025
+# Date:06.10.2025
 # AIM:
 To design a website to calculate the power of a lamp filament in an incandescent bulb in the server side.
 
@@ -32,7 +31,8 @@ Publish the website in the given URL.
 # PROGRAM :
 # SERVER SIDE PROCESSING:
 ## views.py:
-```python
+```
+python
 from django.shortcuts import render
 
 def power_calculator(request):
@@ -66,18 +66,18 @@ def power_calculator(request):
             context['result'] = "Invalid Input"
 
     return render(request, 'mathapp/math.html', context)
-```
+
 ## urls.py (mathapp):
-```python
+python
 from django.urls import path
 from . import views
 
 urlpatterns = [
     path('', views.power_calculator, name='power_calculator'),
 ]
-```
+
 ## urls.py (balaji):
-```python
+python
 from django.contrib import admin
 from django.urls import path, include
 
@@ -85,10 +85,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mathapp.urls')),
 ]
-```
+
 # HOMEPAGE:
 ## math.html:
-```html
+html
 <!DOCTYPE html>
 <html lang="en">
 <head>
